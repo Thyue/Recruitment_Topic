@@ -70,59 +70,76 @@ function isArrEqual(arr1, arr2) {
 
 //函數:清除頁面
 function cleanPage() {
-  document.getElementById("container").textContent = "";
+  document.getElementById("examArea").textContent = "";
 }
 
 //函數:顯示科目選擇頁面
 function showInitialPage() {
-  totalScore = 0;
+  totalScore = 0; // 清除總分
+
   //製作下拉選單
-  let label = document.createElement("label");
-  label.htmlFor = "subject";
-  label.innerHTML = "請選擇科目:";
-  let dropDown = document.createElement("select");
-  dropDown.id = "subject";
+  let divSelect = document.createElement("div");
+  divSelect.className = "input-group mb-3";
+  let labelSelect = document.createElement("label");
+  labelSelect.className = "input-group-text";
+  labelSelect.htmlFor = "subject";
+  labelSelect.innerHTML = "請選擇科目:";
+  let subjectSelect = document.createElement("select");
+  subjectSelect.className = "form-select";
+  subjectSelect.id = "subject";
   for (let subject in data) {
     let opt = document.createElement("option");
     opt.value = subject;
     opt.innerHTML = subject;
-    dropDown.appendChild(opt);
+    subjectSelect.appendChild(opt);
   }
-  document.getElementById("container").appendChild(label);
-  document.getElementById("container").appendChild(dropDown);
+  divSelect.appendChild(labelSelect);
+  divSelect.appendChild(subjectSelect);
+  document.getElementById("examArea").appendChild(divSelect);
   //製作下拉選單
 
   //製作k書選項開關
-  let label3 = document.createElement("label");
-  label3.htmlFor = "fullQuestion";
-  label3.innerHTML = "K書模式";
-  let check2 = document.createElement("input");
-  check2.type = "checkbox";
-  check2.id = "fullQuestion";
-  document.getElementById("container").appendChild(check2);
-  document.getElementById("container").appendChild(label3);
+  let divReadCheck = document.createElement("div");
+  divReadCheck.className = "form-check form-check-inline";
+  let labelReadCheck = document.createElement("label");
+  labelReadCheck.className = "form-check-label";
+  labelReadCheck.htmlFor = "fullQuestion";
+  labelReadCheck.innerHTML = "K書模式";
+  let readCheck = document.createElement("input");
+  readCheck.className = "form-check-input";
+  readCheck.type = "checkbox";
+  readCheck.id = "fullQuestion";
+  divReadCheck.appendChild(readCheck);
+  divReadCheck.appendChild(labelReadCheck);
+  document.getElementById("examArea").appendChild(divReadCheck);
   //製作k書選項開關
 
   //製作洗牌選項開關
-  let label2 = document.createElement("label");
-  label2.htmlFor = "needShuffle";
-  label2.innerHTML = "測驗模式";
-  let check = document.createElement("input");
-  check.type = "checkbox";
-  check.id = "needShuffle";
-  document.getElementById("container").appendChild(check);
-  document.getElementById("container").appendChild(label2);
+  let divRandomCheck = document.createElement("div");
+  divRandomCheck.className = "form-check form-check-inline";
+  let labelRandomCheck = document.createElement("label");
+  labelRandomCheck.className = "form-check-label";
+  labelRandomCheck.htmlFor = "needShuffle";
+  labelRandomCheck.innerHTML = "測驗模式";
+  let randomCheck = document.createElement("input");
+  randomCheck.className = "form-check-input";
+  randomCheck.type = "checkbox";
+  randomCheck.id = "needShuffle";
+  divRandomCheck.appendChild(randomCheck);
+  divRandomCheck.appendChild(labelRandomCheck);
+  document.getElementById("examArea").appendChild(divRandomCheck);
   //製作洗牌選項開關
 
   //製作送出按紐
   let button = document.createElement("button");
+  button.className = "btn btn-success";
   button.textContent = "送出";
   button.addEventListener("click", function () {
     prepareQuestions(document.getElementById("subject").value, document.getElementById("fullQuestion").checked, document.getElementById("needShuffle").checked);
     cleanPage();
     showQuestionPage();
   });
-  document.getElementById("container").appendChild(button);
+  document.getElementById("examArea").appendChild(button);
   //製作送出按紐
 }
 
@@ -130,7 +147,7 @@ function showInitialPage() {
 function showQuestionPage() {
   //表格
   let table = document.createElement("table");
-  document.getElementById("container").appendChild(table);
+  document.getElementById("examArea").appendChild(table);
   //表格
 
   //是非標題
@@ -212,7 +229,7 @@ function showQuestionPage() {
     let labelc = document.createElement("label");
     labelc.innerHTML = questions["是非"][i]["題目"];
     labelc.for = "sc" + i;
-    labelc.className = "cwLabel";
+    labelc.className = "fw-bold d-inline";
     td3.appendChild(labelc);
     //題目
   }
@@ -279,50 +296,58 @@ function showQuestionPage() {
     td3.className = "left";
     tr.appendChild(td3);
     let p2 = document.createElement("p");
+    p2.className = "m-0 fw-bold";
     p2.innerHTML = questions["單選"][i]["題目"];
     td3.appendChild(p2);
     for (let j = 0; j < questions["單選"][i]["選項"].length; j++) {
+      let divTd = document.createElement("div");
+      divTd.className = "form-check form-check-inline p-0";
       let radio = document.createElement("input");
+      radio.className = "d-inline";
       radio.type = "radio";
       radio.name = "s" + i;
       radio.id = "s" + i + j;
       radio.value = questions["單選"][i]["選項"][j];
       td3.appendChild(radio);
       let label = document.createElement("label");
-      label.innerHTML = j + 1 + ". " + radio.value;
+      label.className = "d-inline";
+      label.innerHTML = radio.value;
       label.htmlFor = radio.id;
-      label.className = "optionLabel";
-      td3.appendChild(label);
+      divTd.appendChild(label);
+      td3.appendChild(divTd);
     }
     //題目&選項
   }
   //單選題
 
   //成績
-  let p = document.createElement("p");
-  p.id = "score";
-  p.style.display = "none";
-  document.getElementById("container").appendChild(p);
+  let scoreText = document.createElement("p");
+  scoreText.className = "fs-4 fw-bold text-danger";
+  scoreText.id = "score";
+  scoreText.style.display = "none";
+  document.getElementById("examArea").appendChild(scoreText);
   //成績
 
   //重考按鈕
   let button = document.createElement("button");
+  button.className = "btn btn-danger mt-2";
   button.textContent = "重新測驗(回首頁)";
   button.addEventListener("click", function () {
     cleanPage();
     showInitialPage();
   });
-  document.getElementById("container").appendChild(button);
+  document.getElementById("examArea").appendChild(button);
   //重考按鈕
 
   //考完按鈕
   let button2 = document.createElement("button");
+  button2.className = "btn btn-primary mt-2 ms-2";
   button2.textContent = "我考完了(計算成績)";
   button2.id = "resultButton";
   button2.addEventListener("click", function () {
     showResult();
   });
-  document.getElementById("container").appendChild(button2);
+  document.getElementById("examArea").appendChild(button2);
   //考完按鈕
 }
 

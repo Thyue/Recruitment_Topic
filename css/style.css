@@ -1,18 +1,10 @@
-html {
-  background-color: cornsilk;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-body {
-  text-align: center;
-  font-family: 標楷體;
+a {
+  text-decoration: none;
+  color: #000;
 }
 
 table {
   border: 5px double black;
-  margin: auto;
-  width: 100%;
 }
 
 td {
@@ -33,60 +25,4 @@ td {
 
 .incorrectRow {
   background-color: #ff7d7a;
-}
-
-button {
-  margin: 20px;
-  font-size: 24px;
-  font-family: 標楷體;
-}
-
-select {
-  margin-right: 20px;
-  font-size: 24px;
-  font-family: 標楷體;
-}
-
-label {
-  font-size: 24px;
-}
-
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  font-family: 標楷體;
-}
-
-input[type="radio"] {
-  width: 24px;
-  height: 24px;
-  font-family: 標楷體;
-}
-
-p {
-  font-weight: bold;
-  font-size: 26px;
-}
-
-.updateCheck {
-  font-size: 20px;
-  color: red;
-  font-family: 標楷體;
-}
-
-.cwLabel {
-  font-weight: bold;
-}
-
-.optionLabel {
-  margin-right: 50px;
-}
-
-#score {
-  color: red;
-  font-size: xx-large;
-}
-
-.left {
-  text-align: left;
 }
