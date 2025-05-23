@@ -1,8 +1,8 @@
 // 全域設定
 cQuestionNum = 20; //是非題數
-sQuestionNum = 30; //單選題數
+sQuestionNum = 20; //單選題數
 scorePerC = 2; //是非題分數
-scorePerS = 2; //單選題分數
+scorePerS = 3; //單選題分數
 totalScore = 0; //總分
 questions = {};
 
@@ -14,9 +14,9 @@ function prepareQuestions(subject, full, shuffle) {
   questions = JSON.parse(JSON.stringify(data));
   questions = questions[subject];
   cQuestionNum = 20; //是非題數
-  sQuestionNum = 30; //單選題數
+  sQuestionNum = 20; //單選題數
   scorePerC = 2; //是非題分數
-  scorePerS = 2; //單選題分數
+  scorePerS = 3; //單選題分數
 
   if (full) {
     cQuestionNum = questions["是非"].length; //是非題數
